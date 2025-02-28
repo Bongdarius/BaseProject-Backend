@@ -18,6 +18,5 @@ spring:
       enabled: false
 
 jwt:
-  header: Authorization
-  secret: 1b25768998e2631567a328f0099bc41625734fa2df46eac737a9d4332562635d
-  token-validity-in-seconds: 86400
+  expiration_time: 86400000
+  secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
