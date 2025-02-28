@@ -1,0 +1,37 @@
+package app.auth.web;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import app.auth.dto.LoginDto;
+import app.auth.dto.SignupDto;
+import app.auth.service.AuthService;
+import lombok.RequiredArgsConstructor;
+
+import javax.validation.Valid;
+
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping(value = "/auth")
+@Validated
+public class AuthController {
+
+    private final AuthService service;
+
+    @PostMapping(value = "/signup")
+    public String singup(@RequestBody @Valid SignupDto signupDto) throws Exception {
+        service.signup(signupDto);
+        return "회원가입이 완료되었습니다.";
+    }
+
+    @PostMapping(value = "/login")
+    public String login(@RequestBody @Valid LoginDto loginDto) throws Exception {
+
+        service.login(loginDto);
+        return "로그인 성공!";
+    }
+}

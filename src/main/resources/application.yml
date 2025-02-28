@@ -1,0 +1,23 @@
+server:
+  port: 30000
+
+spring:
+  jpa:
+    # Postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:log4jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 1234
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+  devtools:
+    restart:
+      enabled: false
+
+jwt:
+  header: Authorization
+  secret: 1b25768998e2631567a328f0099bc41625734fa2df46eac737a9d4332562635d
+  token-validity-in-seconds: 86400
