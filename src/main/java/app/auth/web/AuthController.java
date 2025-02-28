@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 
 import javax.validation.Valid;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,9 +31,9 @@ public class AuthController {
     }
 
     @PostMapping(value = "/login")
-    public String login(@RequestBody @Valid LoginDto loginDto) throws Exception {
+    public ResponseEntity<String> login(@RequestBody @Valid LoginDto loginDto) throws Exception {
 
-        service.login(loginDto);
-        return "로그인 성공!";
+        String token = service.login(loginDto);
+        return ResponseEntity.status(HttpStatus.OK).body(token);
     }
 }

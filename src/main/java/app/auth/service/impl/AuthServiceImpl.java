@@ -1,8 +1,6 @@
 package app.auth.service.impl;
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +11,7 @@ import app.auth.dto.SignupDto;
 import app.auth.entity.User;
 import app.auth.repository.UserRepository;
 import app.auth.service.AuthService;
-import app.security.JwtToken;
-import app.security.JwtTokenProvider;
+import app.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -24,8 +21,7 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JPAQueryFactory queryFactory;
     private final UserRepository repository;
-    private final JwtTokenProvider jwtTokenProvider;
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final JwtUtil jwtUtil;
 
     @Override
     public String signup(SignupDto signupDto) throws Exception {
@@ -54,16 +50,7 @@ public class AuthServiceImpl implements AuthService {
         if (!isMatch)
             throw new Exception("비밀번호 불일치");
 
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username,
-                password);
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-
-        JwtToken jwtToken = jwtTokenProvider.generateToken(username, authentication);
-
-        System.out.println(jwtToken.getAccessToken());
-        System.out.println(jwtToken.getGrantType());
-        System.out.println(jwtToken.getRefreshToken());
-
-        return "로그인 성공";
+        String accessToken = jwtUtil.createAccessToken(loginDto);
+        return accessToken;
     }
 }
