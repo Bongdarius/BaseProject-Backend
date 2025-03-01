@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
+import app.auth.dto.ChangePasswordDto;
 import app.auth.dto.LoginDto;
 import app.auth.dto.SignupDto;
 import app.auth.entity.User;
@@ -23,6 +24,7 @@ public class AuthServiceImpl implements AuthService {
     private final JPAQueryFactory queryFactory;
     private final UserRepository repository;
     private final JwtUtil jwtUtil;
+    private final ModelMapper modelMapper;
 
     @Override
     public String signup(SignupDto signupDto) throws Exception {
@@ -30,8 +32,6 @@ public class AuthServiceImpl implements AuthService {
         String password = signupDto.getPassword();
         String encodedPassword = passwordEncoder.encode(password);
         signupDto.setPassword(encodedPassword);
-
-        ModelMapper modelMapper = new ModelMapper();
 
         User user = modelMapper.map(signupDto, User.class);
         user.setRoleCd("USER");
@@ -56,5 +56,22 @@ public class AuthServiceImpl implements AuthService {
 
         String accessToken = jwtUtil.createAccessToken(loginDto);
         return accessToken;
+    }
+
+    @Override
+    public String changePassword(ChangePasswordDto changePasswordDto) throws Exception {
+
+        String username = changePasswordDto.getUsername();
+        String email = changePasswordDto.getEmail();
+
+        User user = repository.findByUsernameAndEmail(username, email).orElseThrow(() -> new Exception("사용자 없음"));
+
+        String newPassword = changePasswordDto.getPassword();
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
+
+        repository.save(user);
+
+        return "success";
     }
 }

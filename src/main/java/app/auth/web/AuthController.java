@@ -3,6 +3,7 @@ package app.auth.web;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.auth.dto.ChangePasswordDto;
 import app.auth.dto.LoginDto;
 import app.auth.dto.SignupDto;
 import app.auth.service.AuthService;
@@ -35,5 +36,13 @@ public class AuthController {
 
         String token = service.login(loginDto);
         return ResponseEntity.status(HttpStatus.OK).body(token);
+    }
+
+    @PostMapping(value = "/changePassword")
+    public ResponseEntity<String> changePassword(@RequestBody @Valid ChangePasswordDto changePasswordDto)
+            throws Exception {
+
+        String msg = service.changePassword(changePasswordDto);
+        return ResponseEntity.status(HttpStatus.OK).body(msg);
     }
 }
