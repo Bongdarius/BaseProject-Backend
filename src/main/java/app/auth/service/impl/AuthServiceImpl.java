@@ -1,5 +1,6 @@
 package app.auth.service.impl;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,10 @@ public class AuthServiceImpl implements AuthService {
         String encodedPassword = passwordEncoder.encode(password);
         signupDto.setPassword(encodedPassword);
 
-        User user = signupDto.toUser();
+        ModelMapper modelMapper = new ModelMapper();
+
+        User user = modelMapper.map(signupDto, User.class);
+        user.setRoleCd("USER");
 
         repository.save(user);
 

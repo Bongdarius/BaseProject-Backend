@@ -10,8 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import app.auth.dto.RoleType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -37,7 +41,10 @@ public class User {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @UpdateTimestamp
+    @Column(name = "role_cd", nullable = false)
+    private String roleCd;
+
+    @CreationTimestamp
     @Column(name = "reg_dt", updatable = false)
     private LocalDateTime regDt;
 

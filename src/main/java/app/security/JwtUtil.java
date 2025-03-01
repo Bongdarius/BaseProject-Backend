@@ -49,15 +49,14 @@ public class JwtUtil {
     /**
      * JWT 생성
      * 
-     * @param member
+     * @param loginDto
      * @param expireTime
      * @return JWT String
      */
-    private String createToken(LoginDto member, long expireTime) {
+    private String createToken(LoginDto loginDto, long expireTime) {
         Claims claims = Jwts.claims();
-        claims.put("username", member.getUsername());
-        // claims.put("email", member.getEmail());
-        claims.put("role", "ADMIN");
+        claims.put("username", loginDto.getUsername());
+        claims.put("role", "USER");
 
         ZonedDateTime now = ZonedDateTime.now();
         ZonedDateTime tokenValidity = now.plusSeconds(expireTime);
@@ -76,8 +75,8 @@ public class JwtUtil {
      * @param token
      * @return User ID
      */
-    public Long getUserId(String token) {
-        return parseClaims(token).get("memberId", Long.class);
+    public String getUsername(String token) {
+        return parseClaims(token).get("username", String.class);
     }
 
     /**

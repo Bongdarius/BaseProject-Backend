@@ -10,9 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import app.auth.entity.User;
 import app.auth.repository.UserRepository;
-import app.security.vo.CustomUserDetail;
+import app.security.CustomUserDetail;
 import lombok.RequiredArgsConstructor;
 
 @Service

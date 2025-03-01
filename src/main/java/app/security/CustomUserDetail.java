@@ -1,4 +1,4 @@
-package app.security.vo;
+package app.security;
 
 import java.util.Collection;
 import java.util.Collections;
