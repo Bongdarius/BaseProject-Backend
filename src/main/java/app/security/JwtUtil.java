@@ -39,11 +39,11 @@ public class JwtUtil {
     /**
      * Access Token 생성
      * 
-     * @param member
+     * @param loginDto
      * @return Access Token String
      */
-    public String createAccessToken(LoginDto member) {
-        return createToken(member, accessTokenExpTime);
+    public String createAccessToken(LoginDto loginDto) {
+        return createToken(loginDto, accessTokenExpTime);
     }
 
     /**
@@ -89,7 +89,7 @@ public class JwtUtil {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
-        } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
+        } catch (SecurityException | MalformedJwtException e) {
             log.info("Invalid JWT Token", e);
         } catch (ExpiredJwtException e) {
             log.info("Expired JWT Token", e);
