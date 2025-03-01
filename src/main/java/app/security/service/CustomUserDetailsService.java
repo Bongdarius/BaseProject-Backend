@@ -32,7 +32,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private CustomUserDetail createUserDetails(app.auth.entity.User user) {
         Collection<? extends GrantedAuthority> authorities = Collections
-                .singleton(new SimpleGrantedAuthority("ROLE_" + "ADMIN"));
+                .singleton(new SimpleGrantedAuthority(user.getRoleCd()));
+
         return new CustomUserDetail(
                 user.getUsername(),
                 user.getPassword(),
