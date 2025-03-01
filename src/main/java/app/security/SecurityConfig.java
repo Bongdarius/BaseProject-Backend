@@ -38,20 +38,6 @@ public class SecurityConfig {
         public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManagerBuilder auth)
                         throws Exception {
 
-                // http.authorizeRequests(requests ->
-                // requests.antMatchers("/swagger-resources/**").permitAll()
-                // .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                // .anyRequest().permitAll());
-
-                // http.headers(headers -> headers.frameOptions().sameOrigin());
-
-                // http.httpBasic(basic -> basic.disable());
-                // http.csrf(csrf -> csrf.disable());
-                // http.sessionManagement(management ->
-                // management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-                // http.cors(withDefaults());
-                // http.formLogin(login -> login.disable());
-
                 http.csrf((csrf) -> csrf.disable());
                 http.cors(withDefaults());
 
