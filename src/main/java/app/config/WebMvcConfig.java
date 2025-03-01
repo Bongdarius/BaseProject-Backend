@@ -1,5 +1,7 @@
 package app.config;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -17,6 +19,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .allowCredentials(true) // 자격 증명 허용
                 .allowedHeaders("*") // 모든 헤더 허용
                 .exposedHeaders("Content-Disposition"); // 노출할 헤더
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 
 }
