@@ -31,10 +31,7 @@ public class SecurityConfig {
         private final CustomAuthenticationEntryPoint authenticationEntryPoint;
         private final CustomUserDetailsService customUserDetailsService;
 
-        private static final String[] AUTH_WHITELIST = {
-                        "/api/v1/member/**", "/swagger-ui/**", "/api-docs", "/swagger-ui-custom.html",
-                        "/v3/api-docs/**", "/api-docs/**", "/swagger-ui.html", "/api/v1/auth/**", "/auth/**"
-        };
+        private static final String[] AUTH_WHITELIST = { "/auth/**" };
 
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManagerBuilder auth)
