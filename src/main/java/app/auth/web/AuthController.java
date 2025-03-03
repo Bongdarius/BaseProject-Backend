@@ -9,6 +9,8 @@ import app.auth.dto.SignupDto;
 import app.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -32,9 +34,11 @@ public class AuthController {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<String> login(@RequestBody @Valid LoginDto loginDto) throws Exception {
+    public ResponseEntity<String> login(@RequestBody @Valid LoginDto loginDto, HttpServletResponse response)
+            throws Exception {
 
         String token = service.login(loginDto);
+
         return ResponseEntity.status(HttpStatus.OK).body(token);
     }
 
