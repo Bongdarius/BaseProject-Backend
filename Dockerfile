@@ -1,6 +1,8 @@
 # 사용할 베이스 이미지 설정 (OpenJDK 17 예시)
 FROM openjdk:17-jdk-slim
 
+WORKDIR /app
+
 # JAR 파일 복사
 COPY target/*.jar BaseProject-1.0.0.jar
 
